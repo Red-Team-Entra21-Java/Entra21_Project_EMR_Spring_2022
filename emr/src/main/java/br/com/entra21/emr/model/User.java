@@ -12,7 +12,7 @@ import javax.persistence.InheritanceType;
 
 
 @Entity
-@Table(name="user")
+@Table(name="user_emr")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class User extends MaturidadeNivel3Richardson {
 
