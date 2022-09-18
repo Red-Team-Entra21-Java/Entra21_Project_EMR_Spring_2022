@@ -25,9 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.entra21.emr.model.Doctor;
 import br.com.entra21.emr.model.ItemNivel3;
-import br.com.entra21.emr.model.Patient;
 import br.com.entra21.emr.repository.IDoctorRepository;
-import br.com.entra21.emr.repository.IPatientRepository;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -89,7 +87,7 @@ public class DoctorController {
 		current.setState(newDataDoctor.getState());
 		current.setCountry(newDataDoctor.getCountry());
 		current.setRegisterNumber(newDataDoctor.getRegisterNumber());
-		current.setRegisterDistrict(newDataDoctor.getRegisterDistrict());
+		current.setRegisterState(newDataDoctor.getRegisterState());
 		current.setSpecialty(newDataDoctor.getSpecialty());
 		doctorRepository.save(current);
 
@@ -138,7 +136,7 @@ public class DoctorController {
 			String state = clone.getState();
 			String country = clone.getCountry();
 			String registerNumber = clone.getRegisterNumber();
-			String registerDistrict = clone.getRegisterDistrict();
+			String registerState = clone.getRegisterState();
 			String specialty = clone.getSpecialty();
 			
 			clone.setName("Different name");
@@ -154,7 +152,7 @@ public class DoctorController {
 			clone.setState("Different password");
 			clone.setCountry("Different password");
 			clone.setRegisterNumber("12345-1");
-			clone.setRegisterDistrict("SC");
+			clone.setRegisterState("SC");
 			clone.setSpecialty("Different Specialty");			
 					
 			String jsonUpdate = mapper.writeValueAsString(clone);
@@ -172,7 +170,7 @@ public class DoctorController {
 			clone.setState(state);
 			clone.setCountry(country);
 			clone.setRegisterNumber(registerNumber);
-			clone.setRegisterDistrict(registerDistrict);
+			clone.setRegisterState(registerState);
 			clone.setSpecialty(specialty);
 			
 			clone.setId(null);
@@ -181,9 +179,9 @@ public class DoctorController {
 
 			doctor.setLinks(new ArrayList<>());
 			doctor.getLinks().add(new ItemNivel3("GET", PATH, null, null));
-			doctor.getLinks().add(new ItemNivel3("GET", PATH + "/" + patient.getId(), null, null));
+			doctor.getLinks().add(new ItemNivel3("GET", PATH + "/" + doctor.getId(), null, null));
 			doctor.getLinks().add(new ItemNivel3("POST", PATH, headers, jsonCreate));
-			doctor.getLinks().add(new ItemNivel3("PUT", PATH + "/" + patient.getId(), headers, jsonUpdate));
+			doctor.getLinks().add(new ItemNivel3("PUT", PATH + "/" + doctor.getId(), headers, jsonUpdate));
 
 		} catch (JsonProcessingException e) {
 

@@ -14,14 +14,48 @@ import javax.persistence.Table;
 @Entity
 @Table(name="doctor_emr")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Doctor extends Person {
+public class Doctor extends MaturidadeNivel3Richardson {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
+	private String name;
+	private String cpf;
+	private String nameMother;
+	private String nameFather;
+	private String genre;
+	private LocalDate birth;
+	private String streetName;
+	private Short numberHome;
+	private String district;
+	private String city;
+	private String state;
+	private String country;
 	private String registerNumber;
-	private String registerDistrict;
+	private String registerState;
 	private String specialty;
+	
+	public Doctor(Integer id, String name, String cpf, String nameMother, String nameFather, String genre,
+			LocalDate birth, String streetName, Short numberHome, String district, String city, String state,
+			String country, String registerNumber, String registerState, String specialty) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.cpf = cpf;
+		this.nameMother = nameMother;
+		this.nameFather = nameFather;
+		this.genre = genre;
+		this.birth = birth;
+		this.streetName = streetName;
+		this.numberHome = numberHome;
+		this.district = district;
+		this.city = city;
+		this.state = state;
+		this.country = country;
+		this.registerNumber = registerNumber;
+		this.registerState = registerState;
+		this.specialty = specialty;
+	}
 	public Doctor() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -30,23 +64,83 @@ public class Doctor extends Person {
 		super(links);
 		// TODO Auto-generated constructor stub
 	}
-	public Doctor(String name, String cpf, String nameMother, String nameFather, String genre, LocalDate birth,
-			String streetName, Short numberHome, String district, String city, String state, String country) {
-		super(name, cpf, nameMother, nameFather, genre, birth, streetName, numberHome, district, city, state, country);
-		// TODO Auto-generated constructor stub
-	}
-	public Doctor(Integer id, String registerNumber, String registerDistrict, String specialty) {
-		super();
-		this.id = id;
-		this.registerNumber = registerNumber;
-		this.registerDistrict = registerDistrict;
-		this.specialty = specialty;
-	}
 	public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getCpf() {
+		return cpf;
+	}
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+	public String getNameMother() {
+		return nameMother;
+	}
+	public void setNameMother(String nameMother) {
+		this.nameMother = nameMother;
+	}
+	public String getNameFather() {
+		return nameFather;
+	}
+	public void setNameFather(String nameFather) {
+		this.nameFather = nameFather;
+	}
+	public String getGenre() {
+		return genre;
+	}
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
+	public LocalDate getBirth() {
+		return birth;
+	}
+	public void setBirth(LocalDate birth) {
+		this.birth = birth;
+	}
+	public String getStreetName() {
+		return streetName;
+	}
+	public void setStreetName(String streetName) {
+		this.streetName = streetName;
+	}
+	public Short getNumberHome() {
+		return numberHome;
+	}
+	public void setNumberHome(Short numberHome) {
+		this.numberHome = numberHome;
+	}
+	public String getDistrict() {
+		return district;
+	}
+	public void setDistrict(String district) {
+		this.district = district;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
+	public String getCountry() {
+		return country;
+	}
+	public void setCountry(String country) {
+		this.country = country;
 	}
 	public String getRegisterNumber() {
 		return registerNumber;
@@ -54,11 +148,11 @@ public class Doctor extends Person {
 	public void setRegisterNumber(String registerNumber) {
 		this.registerNumber = registerNumber;
 	}
-	public String getRegisterDistrict() {
-		return registerDistrict;
+	public String getRegisterState() {
+		return registerState;
 	}
-	public void setRegisterDistrict(String registerDistrict) {
-		this.registerDistrict = registerDistrict;
+	public void setRegisterState(String registerState) {
+		this.registerState = registerState;
 	}
 	public String getSpecialty() {
 		return specialty;
@@ -66,7 +160,5 @@ public class Doctor extends Person {
 	public void setSpecialty(String specialty) {
 		this.specialty = specialty;
 	}
-	
-	
 	
 }
