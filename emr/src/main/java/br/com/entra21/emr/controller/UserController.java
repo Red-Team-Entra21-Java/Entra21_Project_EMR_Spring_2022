@@ -31,25 +31,37 @@ import br.com.entra21.emr.repository.IUserRepository;
 @RequestMapping("/user")
 public class UserController {
 
-	
 	@Autowired
 	private IUserRepository userRepository;
-	
-	
-    //	LIST ALL
+
+	// LIST ALL
 	@GetMapping()
 	@ResponseStatus(HttpStatus.OK)
 	public List<User> list() {
-		
+
 		List<User> response = userRepository.findAll();
-		response.forEach(user ->{
+		response.forEach(user -> {
+			setMaturidadeNivel3(user);
+		});
+
+		return response;
+	}
+
+	@PostMapping("/login")
+	@ResponseStatus(HttpStatus.OK)
+	public @ResponseBody List<User> login(@RequestBody User credentials) {
+
+		List<User> response = userRepository.findAll().stream()
+				.filter(user -> user.getLogin().equals(credentials.getLogin())
+						&& user.getPassword().equals(credentials.getPassword()))
+				.toList();
+		response.forEach(user -> {
 			setMaturidadeNivel3(user);
 		});
 		
 		return response;
 	}
-	
-	
+
 	// LIST FOR ID
 	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
@@ -59,7 +71,7 @@ public class UserController {
 
 		return response;
 	}
-	
+
 	// CREATE
 	@PostMapping()
 	@ResponseStatus(HttpStatus.CREATED)
@@ -67,24 +79,23 @@ public class UserController {
 
 		return userRepository.save(newUser);
 	}
-	
-	//UPDATE
+
+	// UPDATE
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public @ResponseBody Optional<User> update(@PathVariable("id") int param,
-			@RequestBody User newDataUser) {
+	public @ResponseBody Optional<User> update(@PathVariable("id") int param, @RequestBody User newDataUser) {
 
 		User current = userRepository.findById(param).get();
 		current.setName(newDataUser.getName());
 		current.setLogin(newDataUser.getLogin());
 		current.setEmail(newDataUser.getEmail());
 		current.setPassword(newDataUser.getPassword());
-		
+
 		userRepository.save(current);
 
 		return userRepository.findById(param);
 	}
-	
+
 	// DELETE
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
@@ -93,7 +104,7 @@ public class UserController {
 
 		return !userRepository.existsById(id);
 	}
-	
+
 	private void setMaturidadeNivel3(User user) {
 
 		final String PATH = "localhost:8080/user";
@@ -118,19 +129,19 @@ public class UserController {
 			String login = clone.getLogin();
 			String email = clone.getEmail();
 			String password = clone.getPassword();
-			
+
 			clone.setName("Different name");
 			clone.setLogin("Different login");
 			clone.setEmail("Different email");
 			clone.setPassword("Different password");
-			
+
 			String jsonUpdate = mapper.writeValueAsString(clone);
 
 			clone.setName(name);
 			clone.setLogin(login);
 			clone.setEmail(email);
 			clone.setPassword(password);
-			
+
 			clone.setId(null);
 
 			String jsonCreate = mapper.writeValueAsString(clone);
