@@ -70,7 +70,7 @@ public class TeamController {
 	//UPDATE
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public @ResponseBody Optional<Team> atualizar(@PathVariable("id") int param,
+	public @ResponseBody Optional<Team> update(@PathVariable("id") int param,
 			@RequestBody Team newDataTeam) {
 
 		Team current = teamRepository.findById(param).get();

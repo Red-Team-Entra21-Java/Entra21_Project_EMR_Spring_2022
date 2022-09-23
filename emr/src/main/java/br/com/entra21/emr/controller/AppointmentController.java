@@ -71,7 +71,7 @@ public class AppointmentController {
 	//UPDATE
 		@PutMapping("/{id}")
 		@ResponseStatus(HttpStatus.OK)
-		public @ResponseBody Optional<Appointment> atualizar(@PathVariable("id") int param,
+		public @ResponseBody Optional<Appointment> update(@PathVariable("id") int param,
 				@RequestBody Appointment newDataAppointment) {
 
 			Appointment current = appointmentRepository.findById(param).get();

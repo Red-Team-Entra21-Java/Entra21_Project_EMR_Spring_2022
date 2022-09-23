@@ -71,7 +71,7 @@ public class UserController {
 	//UPDATE
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public @ResponseBody Optional<User> atualizar(@PathVariable("id") int param,
+	public @ResponseBody Optional<User> update(@PathVariable("id") int param,
 			@RequestBody User newDataUser) {
 
 		User current = userRepository.findById(param).get();

@@ -72,7 +72,7 @@ public class PatientController {
 	//UPDATE
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public @ResponseBody Optional<Patient> atualizar(@PathVariable("id") int param,
+	public @ResponseBody Optional<Patient> update(@PathVariable("id") int param,
 			@RequestBody Patient newDataPatient) {
 
 		Patient current = patientRepository.findById(param).get();
