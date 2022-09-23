@@ -1,6 +1,7 @@
 package br.com.entra21.emr.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
@@ -12,6 +13,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name="appointment_emr")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -22,8 +25,8 @@ public class Appointment extends MaturidadeNivel3Richardson {
 	private Integer id;
 	private Integer patient_id;
 	private Integer doctor_id;
-	private LocalDate date;
-	private LocalTime hour;
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+	private LocalDateTime date_open;
 	private String anamnesis;
 	private String prescription;
 	private String certificate;
@@ -38,14 +41,13 @@ public class Appointment extends MaturidadeNivel3Richardson {
 		super(links);
 		// TODO Auto-generated constructor stub
 	}
-	public Appointment(Integer id, Integer patient_id, Integer doctor_id, LocalDate date, LocalTime hour,
-			String anamnesis, String prescription, String certificate, String forwarding, String medicalRelease) {
+	public Appointment(Integer id, Integer patient_id, Integer doctor_id, LocalDateTime date_open, String anamnesis,
+			String prescription, String certificate, String forwarding, String medicalRelease) {
 		super();
 		this.id = id;
 		this.patient_id = patient_id;
 		this.doctor_id = doctor_id;
-		this.date = date;
-		this.hour = hour;
+		this.setDate_open(LocalDateTime.now());
 		this.anamnesis = anamnesis;
 		this.prescription = prescription;
 		this.certificate = certificate;
@@ -70,17 +72,11 @@ public class Appointment extends MaturidadeNivel3Richardson {
 	public void setDoctor_id(Integer doctor_id) {
 		this.doctor_id = doctor_id;
 	}
-	public LocalDate getDate() {
-		return date;
+	public LocalDateTime getDate_open() {
+		return date_open;
 	}
-	public void setDate(LocalDate date) {
-		this.date = date;
-	}
-	public LocalTime getHour() {
-		return hour;
-	}
-	public void setHour(LocalTime hour) {
-		this.hour = hour;
+	public void setDate_open(LocalDateTime localDate) {
+		this.date_open = localDate;
 	}
 	public String getAnamnesis() {
 		return anamnesis;
@@ -112,6 +108,8 @@ public class Appointment extends MaturidadeNivel3Richardson {
 	public void setMedicalRelease(String medicalRelease) {
 		this.medicalRelease = medicalRelease;
 	}
+		
+	
 	
 	
 }

@@ -24,7 +24,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.entra21.emr.model.ItemNivel3;
 import br.com.entra21.emr.model.Team;
-import br.com.entra21.emr.model.User;
 import br.com.entra21.emr.repository.ITeamRepository;
 
 @RestController

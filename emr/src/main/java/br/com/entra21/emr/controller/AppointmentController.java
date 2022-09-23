@@ -1,7 +1,6 @@
 package br.com.entra21.emr.controller;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import br.com.entra21.emr.model.Appointment;
 import br.com.entra21.emr.model.ItemNivel3;
@@ -77,8 +78,7 @@ public class AppointmentController {
 			Appointment current = appointmentRepository.findById(param).get();
 			current.setPatient_id(newDataAppointment.getPatient_id());
 			current.setDoctor_id(newDataAppointment.getDoctor_id());
-			current.setDate(newDataAppointment.getDate());
-			current.setHour(newDataAppointment.getHour());
+			current.setDate_open(newDataAppointment.getDate_open());
 			current.setAnamnesis(newDataAppointment.getAnamnesis());
 			current.setPrescription(newDataAppointment.getPrescription());
 			current.setCertificate(newDataAppointment.getCertificate());
@@ -115,7 +115,9 @@ public class AppointmentController {
 		headers.add("Content-type : application/json");
 
 		ObjectMapper mapper = new ObjectMapper();
-
+		mapper.registerModule(new JavaTimeModule());									//ESTUDAR
+		mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+		
 		mapper.setSerializationInclusion(Include.NON_NULL);
 
 		try {
@@ -126,8 +128,7 @@ public class AppointmentController {
 
 			Integer patient_id = clone.getPatient_id();
 			Integer doctor_id = clone.getDoctor_id();
-			LocalDate date = clone.getDate();
-			LocalTime hour = clone.getHour();
+			LocalDateTime date_open = clone.getDate_open();
 			String anamnesis = clone.getAnamnesis();
 			String prescription = clone.getPrescription();
 			String certificate = clone.getCertificate();
@@ -136,8 +137,7 @@ public class AppointmentController {
 
 			clone.setPatient_id(1);
 			clone.setDoctor_id(1);
-			clone.setDate(LocalDate.of(2015, 12, 11));
-			clone.setHour(LocalTime.of(02, 17));
+			clone.setDate_open(LocalDateTime.of(2015, 12, 11, 12, 00));
 			clone.setAnamnesis("Different password");
 			clone.setPrescription("Different password");
 			clone.setCertificate("Different password");
@@ -148,8 +148,7 @@ public class AppointmentController {
 
 			clone.setPatient_id(patient_id);
 			clone.setDoctor_id(doctor_id);
-			clone.setDate(date);
-			clone.setHour(hour);
+			clone.setDate_open(date_open);
 			clone.setAnamnesis(anamnesis);
 			clone.setPrescription(prescription);
 			clone.setCertificate(certificate);
