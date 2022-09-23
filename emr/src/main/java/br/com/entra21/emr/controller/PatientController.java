@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import br.com.entra21.emr.model.ItemNivel3;
 import br.com.entra21.emr.model.Patient;
@@ -111,7 +113,9 @@ public class PatientController {
 		headers.add("Content-type : application/json");
 
 		ObjectMapper mapper = new ObjectMapper();
-
+		mapper.registerModule(new JavaTimeModule());									//ESTUDAR
+		mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+		
 		mapper.setSerializationInclusion(Include.NON_NULL);
 
 		try {
