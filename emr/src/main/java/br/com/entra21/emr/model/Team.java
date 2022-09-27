@@ -20,6 +20,8 @@ public class Team extends MaturidadeNivel3Richardson {
 	private String name;
 	private String github;
 	private String college;
+	private String image;
+	
 	public Team() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -28,12 +30,13 @@ public class Team extends MaturidadeNivel3Richardson {
 		super(links);
 		// TODO Auto-generated constructor stub
 	}
-	public Team(Integer id, String name, String github, String college) {
+	public Team(Integer id, String name, String github, String college, String image) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.github = github;
 		this.college = college;
+		this.image = image;
 	}
 	public Integer getId() {
 		return id;
@@ -59,6 +62,11 @@ public class Team extends MaturidadeNivel3Richardson {
 	public void setCollege(String college) {
 		this.college = college;
 	}
-	
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
 	
 }

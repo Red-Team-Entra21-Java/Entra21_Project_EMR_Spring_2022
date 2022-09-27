@@ -76,6 +76,7 @@ public class TeamController {
 		current.setName(newDataTeam.getName());
 		current.setGithub(newDataTeam.getGithub());
 		current.setCollege(newDataTeam.getCollege());
+		current.setImage(newDataTeam.getImage());
 		
 		teamRepository.save(current);
 
@@ -114,16 +115,19 @@ public class TeamController {
 			String name = clone.getName();
 			String github = clone.getGithub();
 			String college = clone.getCollege();
+			String image = clone.getImage();
 			
 			clone.setName("Different name");
 			clone.setGithub("Different github");
 			clone.setCollege("Different college");
+			clone.setImage("Different image");
 			
 			String jsonUpdate = mapper.writeValueAsString(clone);
 
 			clone.setName(name);
 			clone.setGithub(github);
 			clone.setCollege(college);
+			clone.setImage(image);
 			
 			clone.setId(null);
 
