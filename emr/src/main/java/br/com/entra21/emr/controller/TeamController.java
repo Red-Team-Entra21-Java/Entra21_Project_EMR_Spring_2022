@@ -75,6 +75,7 @@ public class TeamController {
 		Team current = teamRepository.findById(param).get();
 		current.setName(newDataTeam.getName());
 		current.setGithub(newDataTeam.getGithub());
+		current.setLinkedin(newDataTeam.getLinkedin());
 		current.setCollege(newDataTeam.getCollege());
 		current.setImage(newDataTeam.getImage());
 		
@@ -114,11 +115,13 @@ public class TeamController {
 
 			String name = clone.getName();
 			String github = clone.getGithub();
+			String linkedin = clone.getLinkedin();
 			String college = clone.getCollege();
 			String image = clone.getImage();
 			
 			clone.setName("Different name");
 			clone.setGithub("Different github");
+			clone.setLinkedin("Different Linkedin");
 			clone.setCollege("Different college");
 			clone.setImage("Different image");
 			
@@ -126,6 +129,7 @@ public class TeamController {
 
 			clone.setName(name);
 			clone.setGithub(github);
+			clone.setLinkedin(linkedin);
 			clone.setCollege(college);
 			clone.setImage(image);
 			

@@ -65,7 +65,7 @@ public class AppointmentController {
 	@PostMapping()
 	@ResponseStatus(HttpStatus.CREATED)
 	public @ResponseBody Appointment add(@RequestBody Appointment newAppointment) {
-
+		newAppointment.setDate_appointment(LocalDateTime.now());
 		return appointmentRepository.save(newAppointment);
 	}
 
@@ -78,7 +78,10 @@ public class AppointmentController {
 			Appointment current = appointmentRepository.findById(param).get();
 			current.setPatient_id(newDataAppointment.getPatient_id());
 			current.setDoctor_id(newDataAppointment.getDoctor_id());
-			current.setDate_open(newDataAppointment.getDate_open());
+			
+//			current.setDate_appointment(newDataAppointment.getDate_appointment());
+			current.setDate_appointment(LocalDateTime.now());
+
 			current.setAnamnesis(newDataAppointment.getAnamnesis());
 			current.setPrescription(newDataAppointment.getPrescription());
 			current.setCertificate(newDataAppointment.getCertificate());
@@ -128,7 +131,7 @@ public class AppointmentController {
 
 			Integer patient_id = clone.getPatient_id();
 			Integer doctor_id = clone.getDoctor_id();
-			LocalDateTime date_open = clone.getDate_open();
+			LocalDateTime date_appointment = clone.getDate_appointment();
 			String anamnesis = clone.getAnamnesis();
 			String prescription = clone.getPrescription();
 			String certificate = clone.getCertificate();
@@ -137,7 +140,7 @@ public class AppointmentController {
 
 			clone.setPatient_id(1);
 			clone.setDoctor_id(1);
-			clone.setDate_open(LocalDateTime.of(2015, 12, 11, 12, 00));
+			clone.setDate_appointment(LocalDateTime.of(2015, 12, 11, 12, 00));
 			clone.setAnamnesis("Different password");
 			clone.setPrescription("Different password");
 			clone.setCertificate("Different password");
@@ -148,7 +151,7 @@ public class AppointmentController {
 
 			clone.setPatient_id(patient_id);
 			clone.setDoctor_id(doctor_id);
-			clone.setDate_open(date_open);
+			clone.setDate_appointment(date_appointment);
 			clone.setAnamnesis(anamnesis);
 			clone.setPrescription(prescription);
 			clone.setCertificate(certificate);

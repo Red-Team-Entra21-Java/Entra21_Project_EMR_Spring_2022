@@ -26,7 +26,7 @@ public class Appointment extends MaturidadeNivel3Richardson {
 	private Integer patient_id;
 	private Integer doctor_id;
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-	private LocalDateTime date_open;
+	private LocalDateTime date_appointment;
 	private String anamnesis;
 	private String prescription;
 	private String certificate;
@@ -41,13 +41,14 @@ public class Appointment extends MaturidadeNivel3Richardson {
 		super(links);
 		// TODO Auto-generated constructor stub
 	}
-	public Appointment(Integer id, Integer patient_id, Integer doctor_id, LocalDateTime date_open, String anamnesis,
+	public Appointment(Integer id, Integer patient_id, Integer doctor_id, LocalDateTime date_appointment, String anamnesis,
 			String prescription, String certificate, String forwarding, String medicalRelease) {
 		super();
 		this.id = id;
 		this.patient_id = patient_id;
 		this.doctor_id = doctor_id;
-		this.setDate_open(LocalDateTime.now());
+//		this.setDate_appointment(LocalDateTime.now());
+		this.date_appointment = date_appointment;
 		this.anamnesis = anamnesis;
 		this.prescription = prescription;
 		this.certificate = certificate;
@@ -72,11 +73,11 @@ public class Appointment extends MaturidadeNivel3Richardson {
 	public void setDoctor_id(Integer doctor_id) {
 		this.doctor_id = doctor_id;
 	}
-	public LocalDateTime getDate_open() {
-		return date_open;
+	public LocalDateTime getDate_appointment() {
+		return date_appointment;
 	}
-	public void setDate_open(LocalDateTime localDate) {
-		this.date_open = localDate;
+	public void setDate_appointment(LocalDateTime localDate) {
+		this.date_appointment = localDate;
 	}
 	public String getAnamnesis() {
 		return anamnesis;

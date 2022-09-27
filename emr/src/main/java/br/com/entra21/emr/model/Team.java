@@ -19,9 +19,9 @@ public class Team extends MaturidadeNivel3Richardson {
 	private Integer id;
 	private String name;
 	private String github;
+	private String linkedin;
 	private String college;
 	private String image;
-	
 	public Team() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -30,11 +30,12 @@ public class Team extends MaturidadeNivel3Richardson {
 		super(links);
 		// TODO Auto-generated constructor stub
 	}
-	public Team(Integer id, String name, String github, String college, String image) {
+	public Team(Integer id, String name, String github, String linkedin, String college, String image) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.github = github;
+		this.linkedin = linkedin;
 		this.college = college;
 		this.image = image;
 	}
@@ -56,6 +57,12 @@ public class Team extends MaturidadeNivel3Richardson {
 	public void setGithub(String github) {
 		this.github = github;
 	}
+	public String getLinkedin() {
+		return linkedin;
+	}
+	public void setLinkedin(String linkedin) {
+		this.linkedin = linkedin;
+	}
 	public String getCollege() {
 		return college;
 	}
@@ -68,5 +75,6 @@ public class Team extends MaturidadeNivel3Richardson {
 	public void setImage(String image) {
 		this.image = image;
 	}
+	
 	
 }
