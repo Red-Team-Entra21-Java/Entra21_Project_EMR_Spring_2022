@@ -50,24 +50,30 @@ public class DoctorController {
 		return response;
 	}
 	
-	
-	// LIST FOR ID
 	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public List<Doctor> search(@PathVariable("id") int param) {
+	public Doctor findById(@PathVariable("id") Integer id) {
 
-		List<Doctor> response = doctorRepository.findById(param).stream().toList();
-
+		Doctor response = doctorRepository.returnById(id);
+		
 		return response;
 	}
 	
-	// CREATE
+	//CREATE
 	@PostMapping()
 	@ResponseStatus(HttpStatus.CREATED)
 	public @ResponseBody Doctor add(@RequestBody Doctor newDoctor) {
 
-		return doctorRepository.save(newDoctor);
+		return getData(newDoctor);
 	}
+	
+//	//UPDATE
+//	@PutMapping("/{id}")
+//	@ResponseStatus(HttpStatus.OK)
+//	public @ResponseBody Doctor add(@RequestBody Doctor newDoctor) {
+//		findById(newDoctor.getId());
+//		return getData(newDoctor);
+//	}
 	
 	//UPDATE
 	@PutMapping("/{id}")
@@ -103,6 +109,28 @@ public class DoctorController {
 		doctorRepository.deleteById(id);
 
 		return !doctorRepository.existsById(id);
+	}
+	
+	private Doctor getData(Doctor doctor) {
+		Doctor newDoctor = new Doctor();
+		newDoctor.setId(doctor.getId());
+		newDoctor.setName(doctor.getName());
+		newDoctor.setCpf(doctor.getCpf());
+		newDoctor.setNameMother(doctor.getNameMother());
+		newDoctor.setNameFather(doctor.getNameFather());
+		newDoctor.setGenre(doctor.getGenre());
+		newDoctor.setBirth(doctor.getBirth());
+		newDoctor.setStreetName(doctor.getStreetName());
+		newDoctor.setNumberHome(doctor.getNumberHome());
+		newDoctor.setDistrict(doctor.getDistrict());
+		newDoctor.setCity(doctor.getCity());
+		newDoctor.setState(doctor.getState());
+		newDoctor.setCountry(doctor.getCountry());
+		newDoctor.setRegisterNumber(doctor.getRegisterNumber());
+		newDoctor.setRegisterState(doctor.getRegisterState());
+		newDoctor.setSpecialty(doctor.getSpecialty());
+
+		return doctorRepository.save(newDoctor);
 	}
 	
 	private void setMaturidadeNivel3(Doctor doctor) {
@@ -195,4 +223,21 @@ public class DoctorController {
 
 	}
 	
+//	// LIST FOR ID
+//	@GetMapping("/{id}")
+//	@ResponseStatus(HttpStatus.OK)
+//	public List<Doctor> search(@PathVariable("id") int param) {
+//
+//		List<Doctor> response = doctorRepository.findById(param).stream().toList();
+//
+//		return response;
+//	}
+	
+//	// CREATE
+//		@PostMapping()
+//		@ResponseStatus(HttpStatus.CREATED)
+//		public @ResponseBody Doctor add(@RequestBody Doctor newDoctor) {
+//
+//			return doctorRepository.save(newDoctor);
+//		}
 }

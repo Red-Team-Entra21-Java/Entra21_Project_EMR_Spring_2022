@@ -37,7 +37,7 @@ public class PatientController {
 	@Autowired
 	private IPatientRepository patientRepository;
 	
-//	LIST ALL
+//	LIST ALL WITH ALL DATA
 	@GetMapping()
 	@ResponseStatus(HttpStatus.OK)
 	public List<Patient> list() {
@@ -50,24 +50,33 @@ public class PatientController {
 		return response;
 	}
 	
-	
-	// LIST FOR ID
+
+
 	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public List<Patient> search(@PathVariable("id") int param) {
+	public Patient findById(@PathVariable("id") Integer id) {
 
-		List<Patient> response = patientRepository.findById(param).stream().toList();
-
+		Patient response = patientRepository.returnById(id);
+		
 		return response;
 	}
 	
-	// CREATE
+	//CREATE
 	@PostMapping()
 	@ResponseStatus(HttpStatus.CREATED)
 	public @ResponseBody Patient add(@RequestBody Patient newPatient) {
 
-		return patientRepository.save(newPatient);
+		return getData(newPatient);
 	}
+	
+	// UPDATE
+//	@PutMapping("/{id}")
+//	@ResponseStatus(HttpStatus.OK)
+//	public @ResponseBody Patient update(@RequestBody Patient newPatient) {
+//		findById(newPatient.getId());
+//
+//		return from(newPatient);
+//	}
 	
 	//UPDATE
 	@PutMapping("/{id}")
@@ -101,6 +110,27 @@ public class PatientController {
 
 		return !patientRepository.existsById(id);
 	}
+	
+	private Patient getData(Patient patient) {
+		Patient newPatient = new Patient();
+		newPatient.setId(patient.getId());
+		newPatient.setName(patient.getName());
+		newPatient.setCpf(patient.getCpf());
+		newPatient.setNameMother(patient.getNameMother());
+		newPatient.setNameFather(patient.getNameFather());
+		newPatient.setGenre(patient.getGenre());
+		newPatient.setBirth(patient.getBirth());
+		newPatient.setStreetName(patient.getStreetName());
+		newPatient.setNumberHome(patient.getNumberHome());
+		newPatient.setDistrict(patient.getDistrict());
+		newPatient.setCity(patient.getCity());
+		newPatient.setState(patient.getState());
+		newPatient.setCountry(patient.getCountry());
+
+
+		return patientRepository.save(newPatient);
+	}
+	
 	
 	private void setMaturidadeNivel3(Patient patient) {
 
@@ -172,6 +202,7 @@ public class PatientController {
 			patient.setLinks(new ArrayList<>());
 			patient.getLinks().add(new ItemNivel3("GET", PATH, null, null));
 			patient.getLinks().add(new ItemNivel3("GET", PATH + "/" + patient.getId(), null, null));
+			patient.getLinks().add(new ItemNivel3("DELETE", PATH + "/" + patient.getId(), null, null));
 			patient.getLinks().add(new ItemNivel3("POST", PATH, headers, jsonCreate));
 			patient.getLinks().add(new ItemNivel3("PUT", PATH + "/" + patient.getId(), headers, jsonUpdate));
 
@@ -182,4 +213,22 @@ public class PatientController {
 		}
 
 	}
+	
+//	// LIST FOR ID
+//	@GetMapping("/{id}")
+//	@ResponseStatus(HttpStatus.OK)
+//	public List<Patient> search(@PathVariable("id") int param) {
+//
+//		List<Patient> response = patientRepository.findById(param).stream().toList();
+//
+//		return response;
+//	}
+	
+	// CREATE
+//	@PostMapping()
+//	@ResponseStatus(HttpStatus.CREATED)
+//	public @ResponseBody Patient add(@RequestBody Patient newPatient) {
+//
+//		return patientRepository.save(newPatient);
+//	}
 }
