@@ -1,5 +1,7 @@
 package br.com.entra21.emr.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -15,5 +17,7 @@ public interface IAppointmentRepository extends JpaRepository<Appointment, Integ
 	@Query("FROM Appointment WHERE id =:id")
 	Appointment returnById(@Param("id")Integer id);
 	
-
+	public List<Appointment> findByPatient_idEquals(Integer id);
+	
+	
 }

@@ -133,6 +133,12 @@ public class DoctorController {
 		return doctorRepository.save(newDoctor);
 	}
 	
+	@GetMapping(value = "/start/{prefix}")
+	public List<Doctor> getStartWith(@PathVariable("prefix") String prefix) {
+		
+		return doctorRepository.findByNameStartingWith(prefix);
+	}
+	
 	private void setMaturidadeNivel3(Doctor doctor) {
 
 		final String PATH = "localhost:8080/doctor";

@@ -108,6 +108,12 @@ public class AppointmentController {
 
 		return !appointmentRepository.existsById(id);
 	}
+	
+	@GetMapping(value = "/patient/{prefix}")
+	public List<Appointment> getPatientIdEquals(@PathVariable("prefix") Integer prefix) {
+		
+		return appointmentRepository.findByPatient_idEquals(prefix);
+	}
 
 	private Appointment getData(Appointment obj) {
 		Appointment newObj = new Appointment();

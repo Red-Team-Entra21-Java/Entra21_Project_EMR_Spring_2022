@@ -105,6 +105,12 @@ public class UserController {
 		return !userRepository.existsById(id);
 	}
 
+	@GetMapping(value = "/start/{prefix}")
+	public List<User> getStartWith(@PathVariable("prefix") String prefix) {
+		
+		return userRepository.findByNameStartingWith(prefix);
+	}
+	
 	private void setMaturidadeNivel3(User user) {
 
 		final String PATH = "localhost:8080/user";

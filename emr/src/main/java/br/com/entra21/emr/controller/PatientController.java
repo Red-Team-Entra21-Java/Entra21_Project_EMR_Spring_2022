@@ -131,6 +131,11 @@ public class PatientController {
 		return patientRepository.save(newPatient);
 	}
 	
+	@GetMapping(value = "/start/{prefix}")
+	public List<Patient> getStartWith(@PathVariable("prefix") String prefix) {
+		
+		return patientRepository.findByNameStartingWith(prefix);
+	}
 	
 	private void setMaturidadeNivel3(Patient patient) {
 
