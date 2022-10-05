@@ -1,6 +1,5 @@
 package br.com.entra21.emr.controller;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -106,6 +105,13 @@ public class UserController {
 		current.setPassword(newDataUser.getPassword());
 		current.setType(newDataUser.getType());
 
+		if (newDataUser.getDoctor() == null) {
+			current.setDoctor(null);
+		} else {
+			Doctor doctor = doctorController.findById(newDataUser.getDoctor().getId());			
+			current.setDoctor(doctor);
+		}
+		
 		userRepository.save(current);
 
 		return userRepository.findById(param);
@@ -136,7 +142,7 @@ public class UserController {
 		newUser.setEmail(obj.getEmail());
 		newUser.setType(obj.getType());
 
-		if (obj.getDoctor().getId() == null) {
+		if (obj.getDoctor() == null) {
 			newUser.setDoctor(null);
 		} else {
 			Doctor doctor = doctorController.findById(obj.getDoctor().getId());			
