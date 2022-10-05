@@ -1,7 +1,6 @@
 package br.com.entra21.emr.model;
 
 import java.util.ArrayList;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.Table;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 
 @Entity
@@ -23,6 +24,10 @@ public class User extends MaturidadeNivel3Richardson {
 	private String login;
 	private String email;
 	private String password;
+	private String type;
+	@OneToOne
+	@JoinColumn(name="doctor_id")
+	private Doctor doctor;
 	
 	public User() {
 		super();
@@ -32,13 +37,15 @@ public class User extends MaturidadeNivel3Richardson {
 		super(links);
 		// TODO Auto-generated constructor stub
 	}
-	public User(Integer id, String name, String login, String email, String password) {
+	public User(Integer id, String name, String login, String email, String password, String type, Doctor doctor) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.login = login;
 		this.email = email;
 		this.password = password;
+		this.type = type;
+		this.doctor = doctor;
 	}
 	public Integer getId() {
 		return id;
@@ -70,7 +77,22 @@ public class User extends MaturidadeNivel3Richardson {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public Doctor getDoctor() {
+		return doctor;
+	}
+	public void setDoctor(Doctor doctor) {
+		this.doctor = doctor;
+	}
+	
+	
 
+	
 	
 	
 }

@@ -1,5 +1,6 @@
 package br.com.entra21.emr.controller;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +23,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import br.com.entra21.emr.model.Doctor;
 import br.com.entra21.emr.model.ItemNivel3;
 import br.com.entra21.emr.model.User;
 import br.com.entra21.emr.repository.IUserRepository;
@@ -34,6 +36,10 @@ public class UserController {
 	@Autowired
 	private IUserRepository userRepository;
 
+	@Autowired
+	private DoctorController doctorController;
+	
+	
 	// LIST ALL
 	@GetMapping()
 	@ResponseStatus(HttpStatus.OK)
@@ -73,11 +79,19 @@ public class UserController {
 	}
 
 	// CREATE
+//	@PostMapping()
+//	@ResponseStatus(HttpStatus.CREATED)
+//	public @ResponseBody User add(@RequestBody User newUser) {
+//
+//		return userRepository.save(newUser);
+//	}
+	
+	// CREATE
 	@PostMapping()
 	@ResponseStatus(HttpStatus.CREATED)
 	public @ResponseBody User add(@RequestBody User newUser) {
 
-		return userRepository.save(newUser);
+		return getData(newUser);
 	}
 
 	// UPDATE
@@ -90,6 +104,7 @@ public class UserController {
 		current.setLogin(newDataUser.getLogin());
 		current.setEmail(newDataUser.getEmail());
 		current.setPassword(newDataUser.getPassword());
+		current.setType(newDataUser.getType());
 
 		userRepository.save(current);
 
@@ -109,6 +124,27 @@ public class UserController {
 	public List<User> getStartWith(@PathVariable("prefix") String prefix) {
 		
 		return userRepository.findByNameStartingWith(prefix);
+	}
+	
+	
+	private User getData(User obj) {
+		User newUser = new User();
+		newUser.setId(obj.getId());
+		newUser.setName(obj.getName());
+		newUser.setLogin(obj.getLogin());
+		newUser.setPassword(obj.getPassword());
+		newUser.setEmail(obj.getEmail());
+		newUser.setType(obj.getType());
+
+		if (obj.getDoctor().getId() == null) {
+			newUser.setDoctor(null);
+		} else {
+			Doctor doctor = doctorController.findById(obj.getDoctor().getId());			
+			newUser.setDoctor(doctor);
+		}
+		
+
+		return userRepository.save(newUser);
 	}
 	
 	private void setMaturidadeNivel3(User user) {
@@ -135,11 +171,13 @@ public class UserController {
 			String login = clone.getLogin();
 			String email = clone.getEmail();
 			String password = clone.getPassword();
+			String type = clone.getType();
 
 			clone.setName("Different name");
 			clone.setLogin("Different login");
 			clone.setEmail("Different email");
 			clone.setPassword("Different password");
+			clone.setType("Different type");
 
 			String jsonUpdate = mapper.writeValueAsString(clone);
 
@@ -147,6 +185,7 @@ public class UserController {
 			clone.setLogin(login);
 			clone.setEmail(email);
 			clone.setPassword(password);
+			clone.setType(type);
 
 			clone.setId(null);
 

@@ -25,9 +25,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
+import br.com.entra21.emr.model.Appointment;
 import br.com.entra21.emr.model.Doctor;
 import br.com.entra21.emr.model.ItemNivel3;
+import br.com.entra21.emr.model.User;
 import br.com.entra21.emr.repository.IDoctorRepository;
+import br.com.entra21.emr.repository.IUserRepository;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -36,6 +39,9 @@ public class DoctorController {
 
 	@Autowired
 	private IDoctorRepository doctorRepository;
+	
+	@Autowired
+	private IUserRepository userRepository;
 	
 //	LIST ALL
 	@GetMapping()
@@ -63,7 +69,7 @@ public class DoctorController {
 	@PostMapping()
 	@ResponseStatus(HttpStatus.CREATED)
 	public @ResponseBody Doctor add(@RequestBody Doctor newDoctor) {
-
+		
 		return getData(newDoctor);
 	}
 	
@@ -97,6 +103,7 @@ public class DoctorController {
 		current.setRegisterNumber(newDataDoctor.getRegisterNumber());
 		current.setRegisterState(newDataDoctor.getRegisterState());
 		current.setSpecialty(newDataDoctor.getSpecialty());
+		
 		doctorRepository.save(current);
 
 		return doctorRepository.findById(param);

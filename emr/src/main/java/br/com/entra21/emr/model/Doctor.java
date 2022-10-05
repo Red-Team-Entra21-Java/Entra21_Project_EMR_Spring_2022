@@ -44,7 +44,6 @@ public class Doctor extends MaturidadeNivel3Richardson {
 	@JsonIgnore
 	@OneToMany(mappedBy="doctor")
 	private List<Appointment> appointment = new ArrayList<>();
-	
 	public Doctor() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -53,9 +52,10 @@ public class Doctor extends MaturidadeNivel3Richardson {
 		super(links);
 		// TODO Auto-generated constructor stub
 	}
-	public Doctor(Integer id, String name, String cpf, String nameMother, String nameFather, String genre,
+	public Doctor(Integer id, String name, @CPF String cpf, String nameMother, String nameFather, String genre,
 			LocalDate birth, String streetName, Short numberHome, String district, String city, String state,
-			String country, String registerNumber, String registerState, String specialty) {
+			String country, String registerNumber, String registerState, String specialty,
+			List<Appointment> appointment) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -73,6 +73,7 @@ public class Doctor extends MaturidadeNivel3Richardson {
 		this.registerNumber = registerNumber;
 		this.registerState = registerState;
 		this.specialty = specialty;
+		this.appointment = appointment;
 	}
 	public Integer getId() {
 		return id;
@@ -173,4 +174,12 @@ public class Doctor extends MaturidadeNivel3Richardson {
 	public List<Appointment> getAppointment() {
 		return appointment;
 	}
+	public void setAppointment(List<Appointment> appointment) {
+		this.appointment = appointment;
+	}
+
+	
+	
+	
+	
 }
