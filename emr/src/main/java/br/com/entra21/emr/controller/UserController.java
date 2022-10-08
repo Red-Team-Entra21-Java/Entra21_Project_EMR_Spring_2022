@@ -202,6 +202,8 @@ public class UserController {
 			user.getLinks().add(new ItemNivel3("GET", PATH, null, null));
 
 			user.getLinks().add(new ItemNivel3("GET", PATH + "/" + user.getId(), null, null));
+			
+			user.getLinks().add(new ItemNivel3("DELETE", PATH, null, null));
 
 			user.getLinks().add(new ItemNivel3("POST", PATH, headers, jsonCreate));
 
