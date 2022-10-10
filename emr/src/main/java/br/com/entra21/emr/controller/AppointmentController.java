@@ -70,6 +70,7 @@ public class AppointmentController {
 			AppointmentList objeto = new AppointmentList(appointment.getId(), appointment.getDate_appointment(),
 					patient.getName(), patient.getCpf(), doctor.getName());
 			responseList.add(objeto);
+			setMaturidadeNivel3(appointment);
 		});
 		return responseList;
 	}
@@ -82,15 +83,7 @@ public class AppointmentController {
 
 		return response;
 	}
-
-	// UPDATE
-//	@PutMapping("/{id}")
-//	@ResponseStatus(HttpStatus.OK)
-//	public @ResponseBody Appointment update(@RequestBody Appointment newAppointment) {
-//		findById(newAppointment.getId());
-//
-//		return from(newAppointment);
-//	}
+	
 
 	// CREATE
 	@PostMapping()
@@ -98,6 +91,27 @@ public class AppointmentController {
 	public @ResponseBody Appointment add(@RequestBody Appointment newAppointment) {
 
 		return getData(newAppointment);
+	}
+
+	//UPDATE
+	@PutMapping("/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public @ResponseBody Optional<Appointment> update(@PathVariable("id") int param,
+			@RequestBody Appointment newDataAppointment) {
+
+		Appointment current = appointmentRepository.findById(param).get();
+		current.setPatient(newDataAppointment.getPatient());
+		current.setDoctor(newDataAppointment.getDoctor());
+		current.setDate_appointment(LocalDateTime.now());
+		current.setAnamnesis(newDataAppointment.getAnamnesis());
+		current.setPrescription(newDataAppointment.getPrescription());
+		current.setCertificate(newDataAppointment.getCertificate());
+		current.setForwarding(newDataAppointment.getForwarding());
+		current.setMedicalRelease(newDataAppointment.getMedicalRelease());
+
+		appointmentRepository.save(current);
+
+		return appointmentRepository.findById(param);
 	}
 
 	// DELETE
@@ -108,10 +122,10 @@ public class AppointmentController {
 
 		return !appointmentRepository.existsById(id);
 	}
-	
+
 	@GetMapping(value = "/patient/{prefix}")
 	public List<Appointment> getPatientIdEquals(@PathVariable("prefix") Integer prefix) {
-		
+
 		return appointmentRepository.findByPatient_idEquals(prefix);
 	}
 
@@ -210,49 +224,5 @@ public class AppointmentController {
 		}
 
 	}
-
-//	// CREATE
-//	@PostMapping()
-//	@ResponseStatus(HttpStatus.CREATED)
-//	public @ResponseBody Appointment add(@RequestBody Appointment newAppointment) {
-//		newAppointment.setDate_appointment(LocalDateTime.now());
-//		return appointmentRepository.save(newAppointment);
-//	}
-
-//	//UPDATE
-		@PutMapping("/{id}")
-		@ResponseStatus(HttpStatus.OK)
-		public @ResponseBody Optional<Appointment> update(@PathVariable("id") int param,
-				@RequestBody Appointment newDataAppointment) {
-
-			Appointment current = appointmentRepository.findById(param).get();
-			current.setPatient(newDataAppointment.getPatient());
-			current.setDoctor(newDataAppointment.getDoctor());
-			
-//			current.setDate_appointment(newDataAppointment.getDate_appointment());
-			current.setDate_appointment(LocalDateTime.now());
-
-			current.setAnamnesis(newDataAppointment.getAnamnesis());
-			current.setPrescription(newDataAppointment.getPrescription());
-			current.setCertificate(newDataAppointment.getCertificate());
-			current.setForwarding(newDataAppointment.getForwarding());
-			current.setMedicalRelease(newDataAppointment.getMedicalRelease());
-			
-			
-			
-			appointmentRepository.save(current);
-
-			return appointmentRepository.findById(param);
-		}
-
-//	// LIST FOR ID
-//	@GetMapping("/{id}")
-//	@ResponseStatus(HttpStatus.OK)
-//	public List<Appointment> search(@PathVariable("id") int param) {
-//
-//		List<Appointment> response = appointmentRepository.findById(param).stream().toList();
-//
-//		return response;
-//	}
 
 }

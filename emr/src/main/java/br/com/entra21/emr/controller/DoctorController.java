@@ -37,7 +37,6 @@ public class DoctorController {
 	@Autowired
 	private IDoctorRepository doctorRepository;
 	
-//	LIST ALL
 	@GetMapping()
 	@ResponseStatus(HttpStatus.OK)
 	public List<Doctor> list() {
@@ -59,7 +58,6 @@ public class DoctorController {
 		return response;
 	}
 	
-	//CREATE
 	@PostMapping()
 	@ResponseStatus(HttpStatus.CREATED)
 	public @ResponseBody Doctor add(@RequestBody Doctor newDoctor) {
@@ -67,15 +65,6 @@ public class DoctorController {
 		return getData(newDoctor);
 	}
 	
-//	//UPDATE
-//	@PutMapping("/{id}")
-//	@ResponseStatus(HttpStatus.OK)
-//	public @ResponseBody Doctor add(@RequestBody Doctor newDoctor) {
-//		findById(newDoctor.getId());
-//		return getData(newDoctor);
-//	}
-	
-	//UPDATE
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public @ResponseBody Optional<Doctor> update(@PathVariable("id") int param,
@@ -103,7 +92,6 @@ public class DoctorController {
 		return doctorRepository.findById(param);
 	}
 	
-	// DELETE
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public @ResponseBody boolean delete(@PathVariable("id") int id) {
@@ -219,6 +207,7 @@ public class DoctorController {
 			doctor.setLinks(new ArrayList<>());
 			doctor.getLinks().add(new ItemNivel3("GET", PATH, null, null));
 			doctor.getLinks().add(new ItemNivel3("GET", PATH + "/" + doctor.getId(), null, null));
+			doctor.getLinks().add(new ItemNivel3("DELETE", PATH, null, null));
 			doctor.getLinks().add(new ItemNivel3("POST", PATH, headers, jsonCreate));
 			doctor.getLinks().add(new ItemNivel3("PUT", PATH + "/" + doctor.getId(), headers, jsonUpdate));
 
@@ -229,22 +218,5 @@ public class DoctorController {
 		}
 
 	}
-	
-//	// LIST FOR ID
-//	@GetMapping("/{id}")
-//	@ResponseStatus(HttpStatus.OK)
-//	public List<Doctor> search(@PathVariable("id") int param) {
-//
-//		List<Doctor> response = doctorRepository.findById(param).stream().toList();
-//
-//		return response;
-//	}
-	
-//	// CREATE
-//		@PostMapping()
-//		@ResponseStatus(HttpStatus.CREATED)
-//		public @ResponseBody Doctor add(@RequestBody Doctor newDoctor) {
-//
-//			return doctorRepository.save(newDoctor);
-//		}
+
 }

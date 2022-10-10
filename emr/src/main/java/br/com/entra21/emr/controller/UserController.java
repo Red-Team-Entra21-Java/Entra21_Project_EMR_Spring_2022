@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import br.com.entra21.emr.model.Doctor;
 import br.com.entra21.emr.model.ItemNivel3;
@@ -37,8 +39,7 @@ public class UserController {
 
 	@Autowired
 	private DoctorController doctorController;
-	
-	
+
 	// LIST ALL
 	@GetMapping()
 	@ResponseStatus(HttpStatus.OK)
@@ -63,7 +64,7 @@ public class UserController {
 		response.forEach(user -> {
 			setMaturidadeNivel3(user);
 		});
-		
+
 		return response;
 	}
 
@@ -77,14 +78,6 @@ public class UserController {
 		return response;
 	}
 
-	// CREATE
-//	@PostMapping()
-//	@ResponseStatus(HttpStatus.CREATED)
-//	public @ResponseBody User add(@RequestBody User newUser) {
-//
-//		return userRepository.save(newUser);
-//	}
-	
 	// CREATE
 	@PostMapping()
 	@ResponseStatus(HttpStatus.CREATED)
@@ -108,10 +101,10 @@ public class UserController {
 		if (newDataUser.getDoctor() == null) {
 			current.setDoctor(null);
 		} else {
-			Doctor doctor = doctorController.findById(newDataUser.getDoctor().getId());			
+			Doctor doctor = doctorController.findById(newDataUser.getDoctor().getId());
 			current.setDoctor(doctor);
 		}
-		
+
 		userRepository.save(current);
 
 		return userRepository.findById(param);
@@ -128,11 +121,10 @@ public class UserController {
 
 	@GetMapping(value = "/start/{prefix}")
 	public List<User> getStartWith(@PathVariable("prefix") String prefix) {
-		
+
 		return userRepository.findByNameStartingWith(prefix);
 	}
-	
-	
+
 	private User getData(User obj) {
 		User newUser = new User();
 		newUser.setId(obj.getId());
@@ -145,14 +137,13 @@ public class UserController {
 		if (obj.getDoctor() == null) {
 			newUser.setDoctor(null);
 		} else {
-			Doctor doctor = doctorController.findById(obj.getDoctor().getId());			
+			Doctor doctor = doctorController.findById(obj.getDoctor().getId());
 			newUser.setDoctor(doctor);
 		}
-		
 
 		return userRepository.save(newUser);
 	}
-	
+
 	private void setMaturidadeNivel3(User user) {
 
 		final String PATH = "localhost:8080/user";
@@ -164,6 +155,8 @@ public class UserController {
 		headers.add("Content-type : application/json");
 
 		ObjectMapper mapper = new ObjectMapper();
+		mapper.registerModule(new JavaTimeModule()); // ESTUDAR
+		mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 
 		mapper.setSerializationInclusion(Include.NON_NULL);
 
@@ -202,7 +195,7 @@ public class UserController {
 			user.getLinks().add(new ItemNivel3("GET", PATH, null, null));
 
 			user.getLinks().add(new ItemNivel3("GET", PATH + "/" + user.getId(), null, null));
-			
+
 			user.getLinks().add(new ItemNivel3("DELETE", PATH, null, null));
 
 			user.getLinks().add(new ItemNivel3("POST", PATH, headers, jsonCreate));

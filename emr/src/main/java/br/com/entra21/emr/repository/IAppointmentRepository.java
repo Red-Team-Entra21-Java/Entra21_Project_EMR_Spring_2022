@@ -19,5 +19,4 @@ public interface IAppointmentRepository extends JpaRepository<Appointment, Integ
 	
 	public List<Appointment> findByPatient_idEquals(Integer id);
 	
-	
 }
