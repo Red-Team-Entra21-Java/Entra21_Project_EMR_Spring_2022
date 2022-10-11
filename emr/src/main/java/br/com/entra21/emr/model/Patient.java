@@ -2,6 +2,7 @@ package br.com.entra21.emr.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +10,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.validator.constraints.br.CPF;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="patient_emr")
@@ -20,6 +26,7 @@ public class Patient extends MaturidadeNivel3Richardson {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
+	@CPF
 	private String cpf;
 	private String nameMother;
 	private String nameFather;
@@ -31,6 +38,9 @@ public class Patient extends MaturidadeNivel3Richardson {
 	private String city;
 	private String state;
 	private String country;
+	@JsonIgnore
+	@OneToMany(mappedBy="patient")
+	private List<Appointment> appointment = new ArrayList<>();
 	
 	public Patient() {
 		super();
@@ -136,5 +146,7 @@ public class Patient extends MaturidadeNivel3Richardson {
 	public void setCountry(String country) {
 		this.country = country;
 	}
-		
+	public List<Appointment> getAppointment() {
+		return appointment;
+	}
 }

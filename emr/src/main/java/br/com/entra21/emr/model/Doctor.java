@@ -2,6 +2,7 @@ package br.com.entra21.emr.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +10,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.validator.constraints.br.CPF;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="doctor_emr")
@@ -20,6 +26,7 @@ public class Doctor extends MaturidadeNivel3Richardson {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
+	@CPF
 	private String cpf;
 	private String nameMother;
 	private String nameFather;
@@ -34,10 +41,21 @@ public class Doctor extends MaturidadeNivel3Richardson {
 	private String registerNumber;
 	private String registerState;
 	private String specialty;
-	
-	public Doctor(Integer id, String name, String cpf, String nameMother, String nameFather, String genre,
+	@JsonIgnore
+	@OneToMany(mappedBy="doctor")
+	private List<Appointment> appointment = new ArrayList<>();
+	public Doctor() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public Doctor(ArrayList<ItemNivel3> links) {
+		super(links);
+		// TODO Auto-generated constructor stub
+	}
+	public Doctor(Integer id, String name, @CPF String cpf, String nameMother, String nameFather, String genre,
 			LocalDate birth, String streetName, Short numberHome, String district, String city, String state,
-			String country, String registerNumber, String registerState, String specialty) {
+			String country, String registerNumber, String registerState, String specialty,
+			List<Appointment> appointment) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -55,14 +73,7 @@ public class Doctor extends MaturidadeNivel3Richardson {
 		this.registerNumber = registerNumber;
 		this.registerState = registerState;
 		this.specialty = specialty;
-	}
-	public Doctor() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public Doctor(ArrayList<ItemNivel3> links) {
-		super(links);
-		// TODO Auto-generated constructor stub
+		this.appointment = appointment;
 	}
 	public Integer getId() {
 		return id;
@@ -160,5 +171,15 @@ public class Doctor extends MaturidadeNivel3Richardson {
 	public void setSpecialty(String specialty) {
 		this.specialty = specialty;
 	}
+	public List<Appointment> getAppointment() {
+		return appointment;
+	}
+	public void setAppointment(List<Appointment> appointment) {
+		this.appointment = appointment;
+	}
+
+	
+	
+	
 	
 }

@@ -21,7 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
+import br.com.entra21.emr.model.Doctor;
 import br.com.entra21.emr.model.ItemNivel3;
 import br.com.entra21.emr.model.User;
 import br.com.entra21.emr.repository.IUserRepository;
@@ -34,7 +37,9 @@ public class UserController {
 	@Autowired
 	private IUserRepository userRepository;
 
-	// LIST ALL
+	@Autowired
+	private DoctorController doctorController;
+
 	@GetMapping()
 	@ResponseStatus(HttpStatus.OK)
 	public List<User> list() {
@@ -58,11 +63,10 @@ public class UserController {
 		response.forEach(user -> {
 			setMaturidadeNivel3(user);
 		});
-		
+
 		return response;
 	}
 
-	// LIST FOR ID
 	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public List<User> search(@PathVariable("id") int param) {
@@ -72,15 +76,13 @@ public class UserController {
 		return response;
 	}
 
-	// CREATE
 	@PostMapping()
 	@ResponseStatus(HttpStatus.CREATED)
 	public @ResponseBody User add(@RequestBody User newUser) {
 
-		return userRepository.save(newUser);
+		return getData(newUser);
 	}
 
-	// UPDATE
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public @ResponseBody Optional<User> update(@PathVariable("id") int param, @RequestBody User newDataUser) {
@@ -90,19 +92,51 @@ public class UserController {
 		current.setLogin(newDataUser.getLogin());
 		current.setEmail(newDataUser.getEmail());
 		current.setPassword(newDataUser.getPassword());
+		current.setType(newDataUser.getType());
+
+		if (newDataUser.getDoctor() == null) {
+			current.setDoctor(null);
+		} else {
+			Doctor doctor = doctorController.findById(newDataUser.getDoctor().getId());
+			current.setDoctor(doctor);
+		}
 
 		userRepository.save(current);
 
 		return userRepository.findById(param);
 	}
 
-	// DELETE
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public @ResponseBody boolean delete(@PathVariable("id") int id) {
 		userRepository.deleteById(id);
 
 		return !userRepository.existsById(id);
+	}
+
+	@GetMapping(value = "/start/{prefix}")
+	public List<User> getStartWith(@PathVariable("prefix") String prefix) {
+
+		return userRepository.findByNameStartingWith(prefix);
+	}
+
+	private User getData(User obj) {
+		User newUser = new User();
+		newUser.setId(obj.getId());
+		newUser.setName(obj.getName());
+		newUser.setLogin(obj.getLogin());
+		newUser.setPassword(obj.getPassword());
+		newUser.setEmail(obj.getEmail());
+		newUser.setType(obj.getType());
+
+		if (obj.getDoctor() == null) {
+			newUser.setDoctor(null);
+		} else {
+			Doctor doctor = doctorController.findById(obj.getDoctor().getId());
+			newUser.setDoctor(doctor);
+		}
+
+		return userRepository.save(newUser);
 	}
 
 	private void setMaturidadeNivel3(User user) {
@@ -116,6 +150,8 @@ public class UserController {
 		headers.add("Content-type : application/json");
 
 		ObjectMapper mapper = new ObjectMapper();
+		mapper.registerModule(new JavaTimeModule()); // ESTUDAR
+		mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 
 		mapper.setSerializationInclusion(Include.NON_NULL);
 
@@ -129,11 +165,13 @@ public class UserController {
 			String login = clone.getLogin();
 			String email = clone.getEmail();
 			String password = clone.getPassword();
+			String type = clone.getType();
 
 			clone.setName("Different name");
 			clone.setLogin("Different login");
 			clone.setEmail("Different email");
 			clone.setPassword("Different password");
+			clone.setType("Different type");
 
 			String jsonUpdate = mapper.writeValueAsString(clone);
 
@@ -141,6 +179,7 @@ public class UserController {
 			clone.setLogin(login);
 			clone.setEmail(email);
 			clone.setPassword(password);
+			clone.setType(type);
 
 			clone.setId(null);
 
@@ -151,6 +190,8 @@ public class UserController {
 			user.getLinks().add(new ItemNivel3("GET", PATH, null, null));
 
 			user.getLinks().add(new ItemNivel3("GET", PATH + "/" + user.getId(), null, null));
+
+			user.getLinks().add(new ItemNivel3("DELETE", PATH, null, null));
 
 			user.getLinks().add(new ItemNivel3("POST", PATH, headers, jsonCreate));
 

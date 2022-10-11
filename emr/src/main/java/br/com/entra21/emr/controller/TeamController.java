@@ -47,8 +47,6 @@ public class TeamController {
 		return response;
 	}
 	
-	
-	// LIST FOR ID
 	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public List<Team> search(@PathVariable("id") int param) {
@@ -58,7 +56,6 @@ public class TeamController {
 		return response;
 	}
 	
-	// CREATE
 	@PostMapping()
 	@ResponseStatus(HttpStatus.CREATED)
 	public @ResponseBody Team add(@RequestBody Team newTeam) {
@@ -66,7 +63,6 @@ public class TeamController {
 		return teamRepository.save(newTeam);
 	}
 	
-	//UPDATE
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public @ResponseBody Optional<Team> update(@PathVariable("id") int param,
@@ -142,7 +138,9 @@ public class TeamController {
 			team.getLinks().add(new ItemNivel3("GET", PATH, null, null));
 
 			team.getLinks().add(new ItemNivel3("GET", PATH + "/" + team.getId(), null, null));
-
+			
+			team.getLinks().add(new ItemNivel3("DELETE", PATH, null, null));
+			
 			team.getLinks().add(new ItemNivel3("POST", PATH, headers, jsonCreate));
 
 			team.getLinks().add(new ItemNivel3("PUT", PATH + "/" + team.getId(), headers, jsonUpdate));

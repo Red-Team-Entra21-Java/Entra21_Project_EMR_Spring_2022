@@ -66,7 +66,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"Administrator\",\r\n    \"login\":\"admin\",\r\n    \"email\":\"admin@admin.com\",\r\n    \"password\":\"admin\"\r\n}"
+							"raw": "{\r\n    \"name\":\"Teste de Medico\",\r\n    \"login\":\"medico\",\r\n    \"email\":\"medico@admin.com\",\r\n    \"password\":\"medico\",\r\n    \"type\":\"medico\",\r\n    \"doctor\": { \"id\": 1 }\r\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/user",
@@ -100,10 +100,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"Administrator\",\r\n    \"login\":\"admin\",\r\n    \"email\":\"admin@admin.com\",\r\n    \"password\":\"admin\"\r\n}"
+							"raw": "{\r\n    \"name\":\"Emerson Seiler\",\r\n    \"login\":\"seiler\",\r\n    \"email\":\"seiler@emr.com\",\r\n    \"password\":\"seiler123\",\r\n    \"type\":\"Admin\",\r\n    \"doctor\": {}\r\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/user/1",
+							"raw": "http://localhost:8080/user/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -111,7 +111,7 @@
 							"port": "8080",
 							"path": [
 								"user",
-								"1"
+								"3"
 							]
 						}
 					},
@@ -175,6 +175,27 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Find Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/user/start/r",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"start",
+								"r"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -196,6 +217,27 @@
 							"path": [
 								"doctor",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/doctor/start/r",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"doctor",
+								"start",
+								"r"
 							]
 						}
 					},
@@ -449,6 +491,27 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Find Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/patient/start/s",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"patient",
+								"start",
+								"s"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -512,7 +575,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"Emerson Seiler\",\r\n    \"github\":\"seiler-emerson\",\r\n    \"college\":\"Studying Software Engineering\"\r\n}"
+							"raw": "{\r\n    \"name\":\"Emerson Seiler\",\r\n    \"github\":\"https://github.com/seiler-emerson\",\r\n    \"college\":\"Studying Software Engineering\",\r\n    \"image\":\"https://avatars.githubusercontent.com/seiler-emerson\"\r\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/team",
@@ -546,10 +609,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"Welliton Borges\",\r\n    \"github\":\"Wellitonborges\",\r\n    \"college\":\"Studying Analysis and Systems Development\"\r\n}"
+							"raw": "{\r\n    \"name\":\"Welliton Borges\",\r\n    \"github\":\"https://github.com/Wellitonborges\",\r\n    \"college\":\"Studying Analysis and Systems Development\",\r\n    \"image\":\"https://avatars.githubusercontent.com/Wellitonborges\"\r\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/team/2",
+							"raw": "http://localhost:8080/team/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -557,7 +620,7 @@
 							"port": "8080",
 							"path": [
 								"team",
-								"2"
+								"1"
 							]
 						}
 					},
@@ -632,6 +695,26 @@
 					"response": []
 				},
 				{
+					"name": "List Resume",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/appointment/resume",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"appointment",
+								"resume"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Create",
 					"request": {
 						"method": "POST",
@@ -649,7 +732,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"patient_id\":\"1\",\r\n    \"doctor_id\":\"1\",\r\n    \"date_open\":\"09/09/2022 22:17\",\r\n    \"anamnesis\":\"Cefaleia\",\r\n    \"prescription\":\"Paracetamol, se dor\",\r\n    \"certificate\":\"n/h\",\r\n    \"forwarding\":\"n/h\",\r\n    \"medicalRelease\":\"Released\"\r\n}"
+							"raw": "{\r\n    \"patient\": { \"id\": 4 },\r\n    \"doctor\": {\"id\": 2},\r\n    \"anamnesis\":\"Cefaleia\",\r\n    \"prescription\":\"Paracetamol, se dor\",\r\n    \"certificate\":\"n/h\",\r\n    \"forwarding\":\"n/h\",\r\n    \"medicalRelease\":\"Released\"\r\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/appointment",
@@ -683,18 +766,18 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"patient_id\":\"1\",\r\n    \"doctor_id\":\"1\",\r\n    \"date_open\":\"09/09/2022 22:17\",\r\n    \"anamnesis\":\"Cefaleia\",\r\n    \"prescription\":\"Paracetamol, se dor\",\r\n    \"certificate\":\"n/h\",\r\n    \"forwarding\":\"n/h\",\r\n    \"medicalRelease\":\"Released\"\r\n}"
+							"raw": "{\r\n    \"patient\": { \"id\": 4 },\r\n    \"doctor\": {\"id\": 2},\r\n    \"anamnesis\":\"Cefaleia\",\r\n    \"prescription\":\"Paracetamol, se dor\",\r\n    \"certificate\":\"n/h\",\r\n    \"forwarding\":\"n/h\",\r\n    \"medicalRelease\":\"Released\"\r\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/team/2",
+							"raw": "http://localhost:8080/appointment/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"team",
-								"2"
+								"appointment",
+								"3"
 							]
 						}
 					},
