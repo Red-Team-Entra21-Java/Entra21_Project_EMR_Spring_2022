@@ -40,7 +40,6 @@ public class UserController {
 	@Autowired
 	private DoctorController doctorController;
 
-	// LIST ALL
 	@GetMapping()
 	@ResponseStatus(HttpStatus.OK)
 	public List<User> list() {
@@ -68,7 +67,6 @@ public class UserController {
 		return response;
 	}
 
-	// LIST FOR ID
 	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public List<User> search(@PathVariable("id") int param) {
@@ -78,7 +76,6 @@ public class UserController {
 		return response;
 	}
 
-	// CREATE
 	@PostMapping()
 	@ResponseStatus(HttpStatus.CREATED)
 	public @ResponseBody User add(@RequestBody User newUser) {
@@ -86,7 +83,6 @@ public class UserController {
 		return getData(newUser);
 	}
 
-	// UPDATE
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public @ResponseBody Optional<User> update(@PathVariable("id") int param, @RequestBody User newDataUser) {
@@ -110,7 +106,6 @@ public class UserController {
 		return userRepository.findById(param);
 	}
 
-	// DELETE
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public @ResponseBody boolean delete(@PathVariable("id") int id) {

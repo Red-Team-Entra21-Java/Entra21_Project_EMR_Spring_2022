@@ -37,7 +37,6 @@ public class PatientController {
 	@Autowired
 	private IPatientRepository patientRepository;
 	
-//	LIST ALL WITH ALL DATA
 	@GetMapping()
 	@ResponseStatus(HttpStatus.OK)
 	public List<Patient> list() {
@@ -50,8 +49,6 @@ public class PatientController {
 		return response;
 	}
 	
-
-
 	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public Patient findById(@PathVariable("id") Integer id) {
@@ -61,7 +58,6 @@ public class PatientController {
 		return response;
 	}
 	
-	//CREATE
 	@PostMapping()
 	@ResponseStatus(HttpStatus.CREATED)
 	public @ResponseBody Patient add(@RequestBody Patient newPatient) {
@@ -69,16 +65,6 @@ public class PatientController {
 		return getData(newPatient);
 	}
 	
-	// UPDATE
-//	@PutMapping("/{id}")
-//	@ResponseStatus(HttpStatus.OK)
-//	public @ResponseBody Patient update(@RequestBody Patient newPatient) {
-//		findById(newPatient.getId());
-//
-//		return from(newPatient);
-//	}
-	
-	//UPDATE
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public @ResponseBody Optional<Patient> update(@PathVariable("id") int param,
@@ -102,7 +88,6 @@ public class PatientController {
 		return patientRepository.findById(param);
 	}
 	
-	// DELETE
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public @ResponseBody boolean delete(@PathVariable("id") int id) {
@@ -219,21 +204,4 @@ public class PatientController {
 
 	}
 	
-//	// LIST FOR ID
-//	@GetMapping("/{id}")
-//	@ResponseStatus(HttpStatus.OK)
-//	public List<Patient> search(@PathVariable("id") int param) {
-//
-//		List<Patient> response = patientRepository.findById(param).stream().toList();
-//
-//		return response;
-//	}
-	
-	// CREATE
-//	@PostMapping()
-//	@ResponseStatus(HttpStatus.CREATED)
-//	public @ResponseBody Patient add(@RequestBody Patient newPatient) {
-//
-//		return patientRepository.save(newPatient);
-//	}
 }
