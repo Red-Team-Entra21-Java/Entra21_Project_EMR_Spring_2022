@@ -226,6 +226,14 @@ All data is called through existing http methods within the Angular service, and
 
 ---
 
+## **📚 Postman**
+
+You can test the requests through Postman, importing the collections available [here](https://github.com/Red-Team-Entra21-Java/Entra21_Project_EMR_Spring_2022/tree/main/request_postman).
+
+<br>
+
+---
+
 ## **👨🏽‍🏫 Instructions for execute the Project**
 
 ## **Angular**
@@ -308,6 +316,11 @@ user: root and password: Mysql123@ )
 ---
 
 ### **The back-end version of the project developed in SPRING can be found [HERE](https://github.com/Red-Team-Entra21-Java/Entra21_Project_EMR_Spring_2022).**
+
+## **📚 Postman**
+
+You can test requests through Postman by importing the collections available [here](https://github.com/Red-Team-Entra21-Java/Entra21_Project_EMR_Spring_2022/tree/main/request_postman).
+
 
 ## **📚 Technologies and Concepts**
 
