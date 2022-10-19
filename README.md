@@ -321,7 +321,7 @@ You can test the requests through Postman, importing the collections available [
 
 ---
 
-### **The back-end version of the project developed in SPRING can be found [HERE](https://github.com/Red-Team-Entra21-Java/Entra21_Project_EMR_Spring_2022).**
+### **The front-end version of the project developed in Angular can be found [HERE](https://github.com/Red-Team-Entra21-Java/Entra21_Project_EMR_Angular_2022).**
 
 <br>
 
