@@ -216,19 +216,13 @@ In the UserController class are the CRUD methods related to the calls, through w
 
 ## 📊&nbsp; Reports
 
+![User](./readme_images/emr_report.gif)
+
 The reports bring data referring to existing records in the database, that is, appointment, patient, doctor and user data.
 They are listed in table format, displaying the most pertinent data.
 All data is called through existing http methods within the Angular service, and sent through Spring controllers.
 
 </details>
-
-<br>
-
----
-
-## **📚 Postman**
-
-You can test the requests through Postman, importing the collections available [here](https://github.com/Red-Team-Entra21-Java/Entra21_Project_EMR_Spring_2022/tree/main/request_postman).
 
 <br>
 
@@ -315,11 +309,30 @@ user: root and password: Mysql123@ )
 
 ---
 
-### **The back-end version of the project developed in SPRING can be found [HERE](https://github.com/Red-Team-Entra21-Java/Entra21_Project_EMR_Spring_2022).**
-
 ## **📚 Postman**
 
-You can test requests through Postman by importing the collections available [here](https://github.com/Red-Team-Entra21-Java/Entra21_Project_EMR_Spring_2022/tree/main/request_postman).
+You can test the requests through Postman, importing the collections available [here](https://github.com/Red-Team-Entra21-Java/Entra21_Project_EMR_Spring_2022/tree/main/request_postman).
+
+<br>
+
+---
+
+### **The back-end version of the project developed in SPRING can be found [HERE](https://github.com/Red-Team-Entra21-Java/Entra21_Project_EMR_Spring_2022).**
+
+<br>
+
+
+---
+
+## **📚 Trello**
+
+During the development process, the tasks were mapped and executed according to the planning carried out in trello, using the techniques of agile methodologies and kanban.
+
+![Trello](./readme_images/trello.png)
+
+<br>
+---
+
 
 
 ## **📚 Technologies and Concepts**
