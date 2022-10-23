@@ -20,6 +20,9 @@ Focused on the management of electronic medical records, it is able to store and
 
 Another important point is related to the issue of printed documentation, thus eliminating the possibility of errors caused by handwriting interpretation problems.
 
+You can watch the full presentation in the video below.
+
+[![MR Video](./readme_images/video_emr.png)](https://youtu.be/zAlA0TAjGdM)
 ---
 <br>
 
@@ -321,7 +324,7 @@ You can test the requests through Postman, importing the collections available [
 
 ---
 
-### **The front-end version of the project developed in Angular can be found [HERE](https://github.com/Red-Team-Entra21-Java/Entra21_Project_EMR_Angular_2022).**
+### **The back-end version of the project developed in SPRING can be found [HERE](https://github.com/Red-Team-Entra21-Java/Entra21_Project_EMR_Spring_2022).**
 
 <br>
 
